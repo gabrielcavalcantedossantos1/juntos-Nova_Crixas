@@ -40,7 +40,7 @@ export function ViagemCard({ viagem, horario }: ViagemCardProps) {
         <strong>{formatarPreco(horario.preco)}</strong>
       </div>
       <Paradas paradas={horario.paradas} />
-      {horario.servicos && <div className="route-summary"><span>Serviços</span><strong>{horario.servicos.map((servico) => `${servico.nome}${servico.preco === undefined ? '' : ` (${formatarPreco(servico.preco)})`}`).join(' • ')}</strong></div>}
+        {horario.servicos && <div className="service-summary"><span className="service-label">Serviços</span><div className="service-list">{horario.servicos.map((servico) => <div className="service-item" key={servico.nome}><span>{servico.nome}</span><strong>{formatarPreco(servico.preco)}</strong></div>)}</div></div>}
       {horario.direto && <p className="eyebrow">Viagem direta</p>}
       {horario.observacao && <p className="eyebrow">{horario.observacao}</p>}
       <a className="whatsapp-button" href={whatsappLink} target="_blank" rel="noreferrer">

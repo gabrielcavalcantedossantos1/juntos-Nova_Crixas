@@ -29,6 +29,7 @@ export type Viagem = {
 }
 
 export const whatsappAgencia = '5562981629887'
+export const nomeEmpresas = 'MOREIRA E JUNTOS'
 
 const todosOsDias: Dia[] = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo']
 const domingoAQuinta: Dia[] = ['domingo', 'segunda', 'terca', 'quarta', 'quinta']
