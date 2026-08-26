@@ -36,9 +36,9 @@ const domingoAQuinta: Dia[] = ['domingo', 'segunda', 'terca', 'quarta', 'quinta'
 const excetoSabado: Dia[] = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta']
 const avisoMadrugada = 'Horário da madrugada: ir ao guichê antes para comprar o bilhete. Motorista fará apenas o embarque. Agência fechada na madrugada.'
 
-const horarios = (horariosInformados: string[], preco: number, dias = todosOsDias, empresa?: string): Horario[] =>
+const horarios = (horariosInformados: string[], preco: number, dias = todosOsDias): Horario[] =>
   horariosInformados.map((horario) => ({
-    empresa,
+    empresa: horario === '12:40' ? 'Moreira' : 'Juntos',
     dias,
     preco,
     paradas: [{ local: 'Nova Crixás', horario }],
@@ -50,9 +50,9 @@ export const viagens: Viagem[] = [
     origem: 'Nova Crixás',
     destinoFinal: 'Goiânia',
     horarios: [
-      ...horarios(['09:40', '22:40'], 170, todosOsDias, 'Juntos'),
+      ...horarios(['09:40', '22:40'], 170),
       { empresa: 'Juntos', dias: excetoSabado, preco: 170, direto: true, paradas: [{ local: 'Nova Crixás', horario: '23:15' }] },
-      ...horarios(['12:40'], 170, todosOsDias, 'Moreira'),
+      ...horarios(['12:40'], 170),
     ],
   },
   {
@@ -60,9 +60,9 @@ export const viagens: Viagem[] = [
     origem: 'Goiânia',
     destinoFinal: 'Nova Crixás',
     horarios: [
-      ...horarios(['08:00', '21:00'], 175, todosOsDias, 'Juntos'),
-      ...horarios(['22:00'], 175, excetoSabado, 'Juntos'),
-      ...horarios(['13:00'], 175, todosOsDias, 'Moreira'),
+      ...horarios(['08:00', '21:00'], 175),
+      ...horarios(['22:00'], 175, excetoSabado),
+      ...horarios(['13:00'], 175),
     ],
   },
   { id: 3, origem: 'Nova Crixás', destinoFinal: 'Mozarlândia', horarios: horarios(['09:40', '12:40', '22:40'], 35) },
@@ -76,7 +76,7 @@ export const viagens: Viagem[] = [
     destinoFinal: 'São Miguel',
     horarios: [
       ...horarios(['15:00'], 50),
-      { dias: todosOsDias, preco: 50, observacao: avisoMadrugada, paradas: [{ local: 'Nova Crixás', horario: '03:00' }] },
+      { empresa: 'Juntos', dias: todosOsDias, preco: 50, observacao: avisoMadrugada, paradas: [{ local: 'Nova Crixás', horario: '03:00' }] },
     ],
   },
   {
@@ -85,7 +85,7 @@ export const viagens: Viagem[] = [
     destinoFinal: 'São Miguel do Araguaia',
     horarios: [
       ...horarios(['08:00', '21:00'], 210).map((horario) => ({ ...horario, servicos: [{ nome: 'Executivo', preco: 210 }, { nome: 'Leito', preco: 250 }] })),
-      { dias: excetoSabado, paradas: [{ local: 'Goiânia', horario: '22:00' }], servicos: [{ nome: 'Semi-direto' }, { nome: 'Leito', preco: 250 }] },
+      { empresa: 'Juntos', dias: excetoSabado, paradas: [{ local: 'Goiânia', horario: '22:00' }], servicos: [{ nome: 'Semi-direto' }, { nome: 'Leito', preco: 250 }] },
     ],
   },
   {
@@ -94,7 +94,7 @@ export const viagens: Viagem[] = [
     destinoFinal: 'Goiânia',
     horarios: [
       ...horarios(['08:00', '21:00'], 210).map((horario) => ({ ...horario, paradas: [{ local: 'São Miguel do Araguaia', horario: horario.paradas[0].horario }], servicos: [{ nome: 'Executivo', preco: 210 }, { nome: 'Leito', preco: 250 }] })),
-      { dias: excetoSabado, paradas: [{ local: 'São Miguel do Araguaia', horario: '22:00' }], servicos: [{ nome: 'Semi-direto' }, { nome: 'Leito', preco: 250 }] },
+      { empresa: 'Juntos', dias: excetoSabado, paradas: [{ local: 'São Miguel do Araguaia', horario: '22:00' }], servicos: [{ nome: 'Semi-direto' }, { nome: 'Leito', preco: 250 }] },
     ],
   },
   {
@@ -103,7 +103,7 @@ export const viagens: Viagem[] = [
     destinoFinal: 'Araguaçu',
     horarios: [
       ...horarios(['15:00'], 80),
-      { dias: todosOsDias, preco: 80, observacao: avisoMadrugada, paradas: [{ local: 'Nova Crixás', horario: '03:00' }] },
+      { empresa: 'Juntos', dias: todosOsDias, preco: 80, observacao: avisoMadrugada, paradas: [{ local: 'Nova Crixás', horario: '03:00' }] },
     ],
   },
   {
@@ -116,20 +116,20 @@ export const viagens: Viagem[] = [
     id: 13,
     origem: 'Nova Crixás',
     destinoFinal: 'Água Boa',
-    horarios: [{ dias: domingoAQuinta, preco: 145, paradas: [{ local: 'Nova Crixás', horario: '22:40' }, { local: 'Mozarlândia', horario: '02:00' }] }],
+    horarios: [{ empresa: 'Juntos', dias: domingoAQuinta, preco: 145, paradas: [{ local: 'Nova Crixás', horario: '22:40' }, { local: 'Mozarlândia', horario: '02:00' }] }],
   },
   {
     id: 14,
     origem: 'Nova Crixás',
     destinoFinal: 'Cocalinho (MT)',
     horarios: [
-      { dias: todosOsDias, preco: 105, observacao: 'Conexão em Mozarlândia.', paradas: [{ local: 'Nova Crixás', horario: '12:40' }, { local: 'Mozarlândia', horario: '16:50' }] },
-      { dias: excetoSabado, preco: 105, observacao: 'Conexão em Mozarlândia. Não disponível aos sábados.', paradas: [{ local: 'Nova Crixás', horario: '22:40' }, { local: 'Mozarlândia', horario: '02:00' }] },
+      { empresa: 'Moreira', dias: todosOsDias, preco: 105, observacao: 'Conexão em Mozarlândia.', paradas: [{ local: 'Nova Crixás', horario: '12:40' }, { local: 'Mozarlândia', horario: '16:50' }] },
+      { empresa: 'Juntos', dias: excetoSabado, preco: 105, observacao: 'Conexão em Mozarlândia. Não disponível aos sábados.', paradas: [{ local: 'Nova Crixás', horario: '22:40' }, { local: 'Mozarlândia', horario: '02:00' }] },
     ],
   },
   { id: 15, origem: 'Nova Crixás', destinoFinal: 'Faina', horarios: horarios(['09:40', '12:40', '22:40'], 78) },
   { id: 16, origem: 'Nova Crixás', destinoFinal: 'Inhumas', horarios: horarios(['12:40', '22:40'], 147) },
-  { id: 17, origem: 'Goiânia', destinoFinal: 'S.J. dos Bandeirantes', horarios: [{ dias: ['sexta'], preco: 192.02, paradas: [{ local: 'Goiânia', horario: '18:00' }] }] },
+  { id: 17, origem: 'Goiânia', destinoFinal: 'S.J. dos Bandeirantes', horarios: [{ empresa: 'Juntos', dias: ['sexta'], preco: 192.02, paradas: [{ local: 'Goiânia', horario: '18:00' }] }] },
 ]
 
 export const diasDaSemana: { chave: Dia; label: string; curto: string }[] = [
