@@ -19,12 +19,20 @@ export function ViagemCard({ viagem, horario }: ViagemCardProps) {
           <span className="bus-icon"><BusFront size={19} /></span>
           <div>
             <p className="eyebrow">Viagem {viagem.id.toString().padStart(2, '0')}</p>
-            <h2>{viagem.origem} <ArrowRight size={17} /> {viagem.destinoFinal}</h2>
           </div>
         </div>
-        <div className="arrival-block">
-          <span>Horário informado</span>
-          <strong>{paradaOrigem.horario}</strong>
+      </div>
+      <div className="trip-route">
+        <div className="route-point">
+          <span>Partida</span>
+          <strong>{viagem.origem}</strong>
+          <small>Saída às {paradaOrigem.horario}</small>
+        </div>
+        <ArrowRight className="route-arrow" size={18} />
+        <div className="route-point destination-point">
+          <span>Destino</span>
+          <strong>{viagem.destinoFinal}</strong>
+          <small>Destino final</small>
         </div>
       </div>
       <div className="route-summary">
