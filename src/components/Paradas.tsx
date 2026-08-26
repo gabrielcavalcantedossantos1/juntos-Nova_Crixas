@@ -1,5 +1,5 @@
 import { MapPin } from 'lucide-react'
-import { formatarPreco, type Parada } from '../data/viagens'
+import type { Parada } from '../data/viagens'
 
 type ParadasProps = {
   paradas: Parada[]
@@ -18,7 +18,7 @@ export function Paradas({ paradas }: ParadasProps) {
               <span className="stop-time">{parada.horario}</span>
               <span className="stop-place"><MapPin size={15} strokeWidth={2.5} />{parada.local}</span>
             </div>
-            <span className={index === 0 ? 'price origin-price' : 'price'}>{formatarPreco(parada.preco)}</span>
+            {index > 0 && <span className="price">Embarque</span>}
           </div>
         </div>
       ))}
