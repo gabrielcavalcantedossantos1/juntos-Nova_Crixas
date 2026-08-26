@@ -4,8 +4,10 @@ import { diasDaSemana, viagens, type Dia } from './data/viagens'
 import { ViagemCard } from './components/ViagemCard'
 import './App.css'
 
+const diaAtual: Dia = (['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'] as const)[new Date().getDay()]
+
 function App() {
-  const [diaSelecionado, setDiaSelecionado] = useState<Dia>('segunda')
+  const [diaSelecionado, setDiaSelecionado] = useState<Dia>(diaAtual)
   const [origem, setOrigem] = useState('Nova Crixás')
   const [destino, setDestino] = useState('Todos os destinos')
   const locais = useMemo(() => Array.from(new Set(viagens.flatMap((viagem) => viagem.paradas.map((parada) => parada.local)))), [])
