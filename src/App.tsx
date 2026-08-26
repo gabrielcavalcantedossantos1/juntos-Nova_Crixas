@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { CalendarDays, ChevronDown, Compass, MapPin, Search } from 'lucide-react'
-import { diasDaSemana, viagens, type Dia } from './data/viagens'
+import { diasDaSemana, nomeEmpresas, viagens, type Dia } from './data/viagens'
 import { ViagemCard } from './components/ViagemCard'
 import './App.css'
 
@@ -20,7 +20,7 @@ function App() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="/" aria-label="Juntos viagens - início"><span className="brand-mark"><Compass size={21} /></span><span>juntos<span className="brand-dot">.</span></span></a>
+        <a className="brand" href="/" aria-label={`${nomeEmpresas} - início`}><span className="brand-mark"><Compass size={21} /></span><span>{nomeEmpresas}</span></a>
         <span className="header-note">Sua próxima parada começa aqui</span>
       </header>
       <section className="hero-section">
@@ -36,7 +36,7 @@ function App() {
         <div className="results-header"><div><CalendarDays size={17} /><h2>Viagens de {diasDaSemana.find((dia) => dia.chave === diaSelecionado)?.label}</h2></div><span>{viagensFiltradas.length} {viagensFiltradas.length === 1 ? 'opção' : 'opções'}</span></div>
         {viagensFiltradas.length > 0 ? <div className="trip-list">{viagensFiltradas.map(({ viagem, horario, chave }) => <ViagemCard key={chave} viagem={viagem} horario={horario} />)}</div> : <div className="empty-state">Nenhuma viagem encontrada para este dia e destino.</div>}
       </section>
-      <footer><span className="brand"><span className="brand-mark"><Compass size={16} /></span>juntos<span className="brand-dot">.</span></span><span>Consulte. Escolha. Vá.</span></footer>
+      <footer><span className="brand"><span className="brand-mark"><Compass size={16} /></span><span>{nomeEmpresas}</span></span><span>Consulte. Escolha. Vá.</span></footer>
     </main>
   )
 }
