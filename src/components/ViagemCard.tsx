@@ -1,15 +1,17 @@
 import { ArrowRight, BusFront, MessageCircle } from 'lucide-react'
-import { formatarPreco, whatsappAgencia, type Horario, type Viagem } from '../data/viagens'
+import { diasDaSemana, formatarPreco, whatsappAgencia, type Dia, type Horario, type Viagem } from '../data/viagens'
 import { Paradas } from './Paradas'
 
 type ViagemCardProps = {
   viagem: Viagem
   horario: Horario
+  dia: Dia
 }
 
-export function ViagemCard({ viagem, horario }: ViagemCardProps) {
+export function ViagemCard({ viagem, horario, dia }: ViagemCardProps) {
   const paradaOrigem = horario.paradas[0]
-  const mensagem = `Olá! Gostaria de informações sobre a viagem de ${viagem.origem} para ${viagem.destinoFinal}. O horário informado é ${paradaOrigem.horario} e o valor é ${formatarPreco(horario.preco)}.`
+  const nomeDia = diasDaSemana.find((item) => item.chave === dia)?.label ?? dia
+  const mensagem = `Olá! Gostaria de informações sobre a viagem de ${viagem.origem} para ${viagem.destinoFinal} na ${nomeDia.toLowerCase()}. O horário informado é ${paradaOrigem.horario} e o valor é ${formatarPreco(horario.preco)}.`
   const whatsappLink = `https://wa.me/${whatsappAgencia}?text=${encodeURIComponent(mensagem)}`
 
   return (
